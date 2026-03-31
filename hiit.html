@@ -1,0 +1,55 @@
+<!--
+  # CLASS VIDEO PAGE: HIIT Burn (hiit.html)
+  Now, after purchase (localStorage[key] === "true"), the user
+  is sent to this dedicated page where they can watch the class
+  video/content.
+  handleClass() in script.js checks the purchase flag and
+  navigates here. If not purchased, it opens Stripe instead.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HIIT Class</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="classes.html">Classes</a>
+  </nav>
+</header>
+
+<section class="classes">
+
+  <h1>🔥 HIIT Burn Program</h1>
+  <p>Welcome! Complete your workout below 💪</p>
+
+  <div class="class-grid">
+
+    <!-- VIDEO 1 -->
+    <div class="class-card">
+      <iframe width="100%" height="200"
+        src="https://www.youtube.com/embed/ml6cT4AZdqI"
+        frameborder="0" allowfullscreen>
+      </iframe>
+      <h3>Full HIIT Workout</h3>
+    </div>
+
+    <!-- VIDEO 2 -->
+    <div class="class-card">
+      <iframe width="100%" height="200"
+        src="https://www.youtube.com/embed/UBMk30rjy0o"
+        frameborder="0" allowfullscreen>
+      </iframe>
+      <h3>Fat Burn HIIT</h3>
+    </div>
+
+  </div>
+
+</section>
+
+</body>
+</html>

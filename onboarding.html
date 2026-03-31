@@ -1,0 +1,519 @@
+<!--
+This is the onboarding page with a 5-step quiz after signup.
+It collects user preferences like body type, fitness level, and goals.
+
+Based on answers, it recommends meals and links to recipe pages.
+Progress, navigation, and results are handled with simple animations
+and stored data.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Get Started | EmpowerHer Gym</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body { background: #F5EFE6; }
+
+.ob-wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.ob-card {
+  background: white;
+  border-radius: 24px;
+  padding: 50px 44px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+  text-align: center;
+  animation: fadeIn 0.35s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ob-step-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #A3B18A;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.ob-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  color: #2F3D2D;
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+
+.ob-subtitle {
+  font-size: 15px;
+  color: #888;
+  margin-bottom: 36px;
+}
+
+.ob-progress {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 36px;
+}
+
+.ob-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #E0D8D0;
+  transition: background 0.3s;
+}
+
+.ob-dot.active { background: #556B53; }
+.ob-dot.done   { background: #A3B18A; }
+
+.ob-options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.ob-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border: 2px solid #E8E2DA;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+  color: #3A3F35;
+  transition: all 0.2s ease;
+  background: #FAFAF8;
+  user-select: none;
+}
+
+.ob-option:hover {
+  border-color: #A3B18A;
+  background: #F0F4ED;
+}
+
+.ob-option.selected {
+  border-color: #556B53;
+  background: #EBF0E7;
+  color: #2F3D2D;
+}
+
+.ob-option .ob-icon {
+  font-size: 22px;
+}
+
+.ob-option .ob-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: white;
+  transition: 0.2s;
+  flex-shrink: 0;
+}
+
+.ob-option.selected .ob-check {
+  background: #556B53;
+  border-color: #556B53;
+}
+
+.ob-next {
+  width: 100%;
+  padding: 17px;
+  border-radius: 50px;
+  border: none;
+  background: #556B53;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.ob-next.ready {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ob-next.ready:hover {
+  background: #3F4F3C;
+  transform: translateY(-2px);
+}
+
+.ob-back {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 16px;
+  display: block;
+  width: 100%;
+  transition: color 0.2s;
+}
+
+.ob-back:hover { color: #555; }
+
+.ob-result {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Meal plan result cards */
+.ob-rec-card {
+  background: #F0F4ED;
+  border: 2px solid #A3B18A;
+  border-radius: 16px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.2s;
+  text-decoration: none;
+}
+
+.ob-rec-card:hover {
+  background: #E4EDE0;
+  transform: translateX(4px);
+}
+
+.ob-rec-icon { font-size: 28px; }
+
+.ob-rec-title {
+  font-weight: 700;
+  color: #2F3D2D;
+  font-size: 16px;
+}
+
+.ob-rec-desc {
+  font-size: 13px;
+  color: #6B705C;
+  margin-top: 2px;
+}
+
+/* Divider between meal recs and classes link */
+.ob-divider {
+  border: none;
+  border-top: 1px solid #E8E2DA;
+  margin: 6px 0;
+}
+
+.ob-classes-note {
+  font-size: 13px;
+  color: #999;
+  text-align: center;
+  margin-top: 4px;
+}
+
+.ob-classes-note a {
+  color: #556B53;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ob-classes-note a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="ob-wrap">
+  <div class="ob-card" id="obCard">
+
+    <div class="ob-step-label" id="obStepLabel">Step 1 of 5</div>
+
+    <div class="ob-progress" id="obProgress"></div>
+
+    <h2 class="ob-title" id="obTitle"></h2>
+    <p class="ob-subtitle" id="obSubtitle"></p>
+
+    <div class="ob-options" id="obOptions"></div>
+
+    <button class="ob-next" id="obNext" onclick="nextStep()">Continue →</button>
+    <button class="ob-back" id="obBack" onclick="prevStep()" style="display:none">← Go back</button>
+
+    <div class="ob-result" id="obResult"></div>
+
+  </div>
+</div>
+
+<script>
+const steps = [
+  {
+    title: "What's your body type?",
+    subtitle: "This helps us personalise your meal plan.",
+    options: [
+      { label: "Slim",     icon: "🌿", value: "slim" },
+      { label: "Average",  icon: "✨", value: "average" },
+      { label: "Athletic", icon: "💪", value: "athletic" },
+      { label: "Heavy",    icon: "🌸", value: "heavy" }
+    ]
+  },
+  {
+    title: "What's your fitness level?",
+    subtitle: "Be honest — we'll match you perfectly.",
+    options: [
+      { label: "Beginner",     icon: "🌱", value: "beginner" },
+      { label: "Intermediate", icon: "🔥", value: "intermediate" },
+      { label: "Advanced",     icon: "🏆", value: "advanced" }
+    ]
+  },
+  {
+    title: "What's your main goal?",
+    subtitle: "Pick the one that matters most right now.",
+    options: [
+      { label: "Lose weight",  icon: "⚡", value: "lose" },
+      { label: "Gain muscle",  icon: "💪", value: "gain" },
+      { label: "Stay fit",     icon: "🌿", value: "fit" }
+    ]
+  },
+  {
+    title: "Where do you prefer to work out?",
+    subtitle: "We'll suggest what fits your lifestyle.",
+    options: [
+      { label: "At home", icon: "🏠", value: "home" },
+      { label: "At the gym", icon: "🏋️", value: "gym" }
+    ]
+  },
+  {
+    title: "Do you have experience with workouts?",
+    subtitle: "Just so we know how to guide you.",
+    options: [
+      { label: "Yes, I've worked out before", icon: "✅", value: "yes" },
+      { label: "No, I'm just starting out",   icon: "🌟", value: "no" }
+    ]
+  }
+];
+
+let currentStep = 0;
+let answers = [];
+let selectedIndex = -1;
+
+// Meal plan data — maps to recipe pages
+const mealData = {
+  acai: {
+    name: "Acai Breakfast Bowl",
+    icon: "🥣",
+    desc: "Antioxidant-rich, energising start to your day",
+    page: "recipe-acai.html",
+    tags: ["fit", "slim", "beginner"]
+  },
+  smoothie: {
+    name: "Protein Power Smoothie",
+    icon: "🥤",
+    desc: "High-protein shake for muscle recovery",
+    page: "recipe-smoothie.html",
+    tags: ["gain", "athletic", "intermediate", "advanced"]
+  },
+  oats: {
+    name: "Overnight Oats",
+    icon: "🌾",
+    desc: "Slow-release carbs to fuel long workouts",
+    page: "recipe-oats.html",
+    tags: ["fit", "lose", "beginner", "average"]
+  },
+  chicken: {
+    name: "Grilled Chicken & Veggies",
+    icon: "🍗",
+    desc: "Lean protein plate for muscle building",
+    page: "recipe-chicken.html",
+    tags: ["gain", "athletic", "advanced", "gym"]
+  },
+  salmon: {
+    name: "Salmon & Quinoa",
+    icon: "🐟",
+    desc: "Omega-3 rich dinner for strength and recovery",
+    page: "recipe-salmon.html",
+    tags: ["gain", "fit", "intermediate", "advanced"]
+  },
+  wrap: {
+    name: "Veggie Wrap",
+    icon: "🌯",
+    desc: "Light, fibre-packed meal for weight management",
+    page: "recipe-wrap.html",
+    tags: ["lose", "slim", "heavy", "beginner", "home"]
+  }
+};
+
+function getMealRecommendations() {
+  const body  = answers[0]; // slim, average, athletic, heavy
+  const level = answers[1]; // beginner, intermediate, advanced
+  const goal  = answers[2]; // lose, gain, fit
+  const place = answers[3]; // home, gym
+
+  let recs = [];
+
+  // Goal-first logic
+  if (goal === "lose") recs = ["wrap", "oats", "acai"];
+  if (goal === "gain") recs = ["chicken", "salmon", "smoothie"];
+  if (goal === "fit")  recs = ["acai", "oats", "salmon"];
+
+  // Adjust for body type
+  if (body === "slim" || body === "heavy") {
+    if (goal === "gain" && !recs.includes("smoothie")) recs.unshift("smoothie");
+    if (goal === "lose" && !recs.includes("wrap"))    recs.unshift("wrap");
+  }
+
+  // Adjust for level
+  if (level === "beginner") {
+    recs = recs.filter(r => r !== "chicken");
+    if (!recs.includes("oats")) recs.push("oats");
+  }
+
+  if (level === "advanced") {
+    if (!recs.includes("chicken")) recs.push("chicken");
+    recs = recs.filter(r => r !== "wrap");
+  }
+
+  // Adjust for place
+  if (place === "home") {
+    if (!recs.includes("smoothie")) recs.push("smoothie");
+  }
+
+  return [...new Set(recs)].slice(0, 3);
+}
+
+function renderStep() {
+  const step = steps[currentStep];
+  document.getElementById("obStepLabel").textContent = "Step " + (currentStep + 1) + " of " + steps.length;
+  document.getElementById("obTitle").textContent = step.title;
+  document.getElementById("obSubtitle").textContent = step.subtitle;
+
+  const progress = document.getElementById("obProgress");
+  progress.innerHTML = "";
+  steps.forEach((_, i) => {
+    const dot = document.createElement("div");
+    dot.className = "ob-dot" + (i < currentStep ? " done" : i === currentStep ? " active" : "");
+    progress.appendChild(dot);
+  });
+
+  const container = document.getElementById("obOptions");
+  container.innerHTML = "";
+  selectedIndex = -1;
+  document.getElementById("obNext").classList.remove("ready");
+
+  step.options.forEach((opt, i) => {
+    const div = document.createElement("div");
+    div.className = "ob-option";
+    div.innerHTML =
+      '<span class="ob-icon">' + opt.icon + '</span>' +
+      '<span style="flex:1; text-align:left; margin-left:14px;">' + opt.label + '</span>' +
+      '<span class="ob-check">✓</span>';
+    div.onclick = function() { selectOption(i, div); };
+    container.appendChild(div);
+  });
+
+  document.getElementById("obBack").style.display = currentStep > 0 ? "block" : "none";
+  document.getElementById("obResult").style.display = "none";
+  document.getElementById("obResult").style.flexDirection = "";
+  container.style.display = "flex";
+  document.getElementById("obNext").style.display = "block";
+}
+
+function selectOption(index, el) {
+  document.querySelectorAll(".ob-option").forEach(o => o.classList.remove("selected"));
+  el.classList.add("selected");
+  selectedIndex = index;
+  document.getElementById("obNext").classList.add("ready");
+}
+
+function nextStep() {
+  if (selectedIndex === -1) return;
+  answers[currentStep] = steps[currentStep].options[selectedIndex].value;
+
+  if (currentStep < steps.length - 1) {
+    currentStep++;
+    renderStep();
+    document.getElementById("obCard").style.animation = "none";
+    void document.getElementById("obCard").offsetWidth;
+    document.getElementById("obCard").style.animation = "fadeIn 0.35s ease";
+  } else {
+    showResults();
+  }
+}
+
+function prevStep() {
+  if (currentStep > 0) {
+    currentStep--;
+    renderStep();
+  }
+}
+
+function showResults() {
+  const recs = getMealRecommendations();
+
+  document.getElementById("obStepLabel").textContent = "Your Meal Plan is Ready 🎉";
+  document.getElementById("obTitle").textContent = "Personalised for you";
+  document.getElementById("obSubtitle").textContent = "Based on your answers, here are the best meals for your goals:";
+  document.getElementById("obProgress").innerHTML = "";
+  document.getElementById("obOptions").style.display = "none";
+  document.getElementById("obNext").style.display = "none";
+  document.getElementById("obBack").style.display = "none";
+
+  const resultEl = document.getElementById("obResult");
+  resultEl.style.display = "flex";
+  resultEl.style.flexDirection = "column";
+  resultEl.innerHTML = "";
+
+  recs.forEach(key => {
+    const m = mealData[key];
+    const card = document.createElement("a");
+    card.className = "ob-rec-card";
+    card.href = m.page;
+    card.innerHTML =
+      '<span class="ob-rec-icon">' + m.icon + '</span>' +
+      '<div>' +
+        '<div class="ob-rec-title">' + m.name + '</div>' +
+        '<div class="ob-rec-desc">' + m.desc + '</div>' +
+      '</div>' +
+      '<span style="margin-left:auto; color:#A3B18A; font-size:20px;">→</span>';
+    resultEl.appendChild(card);
+  });
+
+  // Full meal plans button
+  const btn = document.createElement("button");
+  btn.className = "ob-next ready";
+  btn.style.marginTop = "10px";
+  btn.textContent = "View All Meal Plans →";
+  btn.onclick = function() { window.location.href = "meal.html"; };
+  resultEl.appendChild(btn);
+
+  // Divider + classes note
+  const hr = document.createElement("hr");
+  hr.className = "ob-divider";
+  resultEl.appendChild(hr);
+
+  const note = document.createElement("p");
+  note.className = "ob-classes-note";
+  note.innerHTML = 'Looking for workouts? <a href="classes.html">Browse our classes →</a>';
+  resultEl.appendChild(note);
+}
+
+renderStep();
+</script>
+</body>
+</html>

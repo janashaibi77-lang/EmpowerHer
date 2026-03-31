@@ -1,0 +1,169 @@
+<!--
+This is the Pilates class video page.
+After purchase, users are redirected here to watch the content.
+
+Access is controlled by checking localStorage.
+If not purchased, users are sent to payment instead.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pilates Core | EmpowerHer Gym</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.class-hero {
+  background: linear-gradient(135deg, #3F4F3C, #6B8F71);
+  padding: 60px 40px;
+  text-align: center;
+  color: white;
+}
+.class-hero h1 { font-family: 'Playfair Display', serif; font-size: 46px; margin-bottom: 12px; }
+.class-hero p  { font-size: 18px; opacity: 0.85; margin-bottom: 6px; }
+.class-hero .schedule { font-size: 15px; opacity: 0.7; margin-top: 8px; }
+.video-section {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+.video-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #2F3D2D;
+  margin-bottom: 24px;
+}
+.video-wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+.video-wrap iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+.class-info {
+  max-width: 700px;
+  margin: 40px auto 80px;
+  padding: 0 20px;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.info-card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px 32px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+  border-top: 4px solid #A3B18A;
+  text-align: center;
+  flex: 1;
+  min-width: 160px;
+}
+.info-card h4 { color: #6B705C; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.info-card p  { color: #2F3D2D; font-size: 20px; font-weight: 700; }
+.back-link {
+  display: inline-block;
+  margin: 0 auto 40px;
+  color: #556B53;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+.back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-container">
+    <div class="logo-text">
+      <span class="logo-icon">🌿</span>
+      <div class="logo-name">
+        <span class="main">EmpowerHer</span>
+        <span class="sub">GYM</span>
+      </div>
+    </div>
+    <div class="nav-box">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="classes.html">Classes</a>
+        <a href="meal.html">Meal Plans</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
+        <a href="#" class="bag">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#556B53" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 7l1-3h10l1 3"></path>
+            <path d="M3 7h18l-1 13H4L3 7z"></path>
+            <path d="M9 10a3 3 0 0 0 6 0"></path>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<div class="class-hero">
+  <h1>🌿 Pilates Core</h1>
+  <p>Strengthen your core and improve posture.</p>
+  <p class="schedule">&#128197; Sunday – 5:00pm &nbsp;|&nbsp; &#128176; 59 SAR</p>
+</div>
+
+<div class="video-section">
+  <h2>Your Workout Video</h2>
+  <div class="video-wrap">
+    <iframe src="https://www.youtube.com/embed/K2EumjZ68nU" allowfullscreen></iframe>
+  </div>
+</div>
+
+<div class="class-info">
+  <div class="info-card">
+    <h4>Schedule</h4>
+    <p style="font-size:15px;">Sunday – 5:00pm</p>
+  </div>
+  <div class="info-card">
+    <h4>Price</h4>
+    <p>59 SAR</p>
+  </div>
+  <div class="info-card">
+    <h4>Level</h4>
+    <p>All Levels</p>
+  </div>
+</div>
+
+<div style="text-align:center; margin-bottom: 80px;">
+  <a href="classes.html" class="back-link">← Back to All Classes</a>
+</div>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-column">
+      <h4>EmpowerHer Gym</h4>
+      <p>Helping women become stronger every day.</p>
+    </div>
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <a href="classes.html">Classes</a>
+      <a href="meal.html">Meal Plans</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </div>
+    <div class="footer-column">
+      <h4>Hours</h4>
+      <p>Mon-Fri: 6am – 10pm</p>
+      <p>Sat-Sun: 7am – 8pm</p>
+    </div>
+  </div>
+  <div class="copyright">© 2026 EmpowerHer Gym. All Rights Reserved.</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

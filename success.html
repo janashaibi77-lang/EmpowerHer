@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payment Success</title>
+</head>
+<body>
+
+<h2>✅ Payment Successful!</h2>
+<p>Unlocking your class...</p>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+// ✅ HANDLE RECIPES
+const recipe = params.get("recipe");
+if (recipe) {
+  localStorage.setItem(recipe, "true");
+
+  setTimeout(() => {
+    window.location.href = recipe + ".html";
+  }, 1000);
+}
+
+// ✅ HANDLE CLASSES (keep your old system working)
+const className = params.get("class");
+if (className) {
+  localStorage.setItem(className, "true");
+
+  setTimeout(() => {
+    window.location.href = className + ".html";
+  }, 1000);
+}
+</script>
+</body>
+</html>

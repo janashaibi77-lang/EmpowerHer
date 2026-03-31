@@ -1,0 +1,117 @@
+<!--
+This is the login page with an email and password form.
+It checks user data from localStorage and verifies login details.
+If correct, the user is redirected to the dashboard.
+If not, an error message is shown.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login | EmpowerHer Gym</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<header>
+
+  <div class="header-container">
+
+    <!-- LEFT: LOGO -->
+   
+<div class="logo-text">
+  <span class="logo-icon">🌿</span>
+
+  <div class="logo-name">
+    <span class="main">EmpowerHer</span>
+    <span class="sub">GYM</span>
+  </div>
+</div>
+
+    <!-- RIGHT: NAV + CART -->
+    <div class="nav-box">
+
+     <nav>
+  <a href="index.html">Home</a>
+  <a href="classes.html">Classes</a>
+<a href="meal.html">Meal Plans</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+
+  <a href="login.html">Login</a>
+
+  <!-- SHOPPING BAG -->
+
+  <a href="#" class="bag">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#556B53" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 7l1-3h10l1 3"></path>
+    <path d="M3 7h18l-1 13H4L3 7z"></path>
+    <path d="M9 10a3 3 0 0 0 6 0"></path>
+  </svg>
+</a>
+
+
+</nav>
+
+    </div>
+
+  </div>
+
+</header>
+
+<section class="auth">
+
+<div class="auth-box">
+
+<h2>Member Login</h2>
+
+<input type="email" placeholder="Email Address">
+
+<input type="password" placeholder="Password">
+
+<button class="btn" onclick="loginUser()">Login</button>
+
+<p style="margin-top:15px;">Don't have an account?</p>
+
+<a href="signup.html">Create Account</a>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<div class="footer-container">
+
+<div class="footer-column">
+<h4>EmpowerHer Gym</h4>
+<p>Helping women become stronger every day.</p>
+</div>
+
+<div class="footer-column">
+<h4>Quick Links</h4>
+<a href="index.html">Home</a>
+<a href="classes.html">Classes</a>
+<a href="meal.html">Meals Plans</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+</div>
+
+<div class="footer-column">
+<h4>Hours</h4>
+<p>Mon-Fri: 6am – 10pm</p>
+<p>Sat-Sun: 7am – 8pm</p>
+</div>
+
+</div>
+
+<div class="copyright">
+© 2026 EmpowerHer Gym. All Rights Reserved.
+</div>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

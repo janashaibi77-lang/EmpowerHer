@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Classes</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<!--
+This is the classes page showing different fitness classes.
+Each card includes details, a buy/start button, and add-to-cart option.
+
+Users can search classes, purchase them, and access content if unlocked.
+The system uses localStorage to track purchases and update button states.
+-->
+
+<body>
+<header>
+  <div class="header-container">
+    <div class="logo-text">
+      <span class="logo-icon">🌿</span>
+      <div class="logo-name">
+        <span class="main">EmpowerHer</span>
+        <span class="sub">GYM</span>
+      </div>
+    </div>
+    <div class="nav-box">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="classes.html">Classes</a>
+        <a href="meal.html">Meal Plans</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
+        <!-- BAG ICON: wired up by injectCartBadge() in script.js -->
+        <a href="#" class="bag">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#556B53" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 7l1-3h10l1 3"></path>
+            <path d="M3 7h18l-1 13H4L3 7z"></path>
+            <path d="M9 10a3 3 0 0 0 6 0"></path>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="classes">
+
+<h1>Our Classes</h1>
+<!-- Live search: filters .class-card elements as user types -->
+<input type="text" id="search" placeholder="Search class..." onkeyup="searchClass()">
+
+<div class="class-grid">
+
+  <!-- CLASS CARD: HIIT Burn -->
+  <!-- id="hiit-btn" is targeted by updateButtons() to flip lock/unlock -->
+  <div class="class-card">
+    <img src="hiit.jpg" class="class-img">
+    <div class="class-box">
+      <h3>HIIT Burn</h3>
+      <p>A fast-paced workout designed to boost energy and burn calories.</p>
+      <p><strong>Monday & Wednesday – 6:00pm</strong></p>
+      <p class="price">40 SAR</p>
+      <div class="btn-group">
+        <button class="btn" id="hiit-btn" onclick="handleClass('hiit')">🔒 Buy Class</button>
+        <button class="btn-cart" onclick="addToCart('hiit', 'HIIT Burn', 40)">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLASS CARD: Strength Training -->
+  <div class="class-card">
+    <img src="strength.jpg" class="class-img">
+    <div class="class-box">
+      <h3>Strength Training</h3>
+      <p>Build muscle and increase strength with guided workouts.</p>
+      <p><strong>Tuesday & Thursday – 5:00pm</strong></p>
+      <p class="price">50 SAR</p>
+      <div class="btn-group">
+        <button class="btn" id="strength-btn" onclick="handleClass('strength')">🔒 Buy Class</button>
+        <button class="btn-cart" onclick="addToCart('strength', 'Strength Training', 50)">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLASS CARD: Yoga Flow -->
+  <div class="class-card">
+    <img src="yoga.jpg" class="class-img">
+    <div class="class-box">
+      <h3>Yoga Flow</h3>
+      <p>Improve flexibility, balance, and relaxation.</p>
+      <p><strong>Monday & Friday – 7:00pm</strong></p>
+      <p class="price">30 SAR</p>
+      <div class="btn-group">
+        <button class="btn" id="yoga-btn" onclick="handleClass('yoga')">🔒 Buy Class</button>
+        <button class="btn-cart" onclick="addToCart('yoga', 'Yoga Flow', 30)">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLASS CARD: Full Body Sculpt -->
+  <div class="class-card">
+    <img src="sculpt.jpg" class="class-img">
+    <div class="class-box">
+      <h3>Full Body Sculpt</h3>
+      <p>Tone your body with strength and endurance training.</p>
+      <p><strong>Saturday – 4:00pm</strong></p>
+      <p class="price">50 SAR</p>
+      <div class="btn-group">
+        <button class="btn" id="sculpt-btn" onclick="handleClass('sculpt')">🔒 Buy Class</button>
+        <button class="btn-cart" onclick="addToCart('sculpt', 'Full Body Sculpt', 50)">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLASS CARD: Pilates Core -->
+  <div class="class-card">
+    <img src="pilates.jpg" class="class-img">
+    <div class="class-box">
+      <h3>Pilates Core</h3>
+      <p>Strengthen your core and improve posture.</p>
+      <p><strong>Sunday – 5:00pm</strong></p>
+      <p class="price">59 SAR</p>
+      <div class="btn-group">
+        <button class="btn" id="pilates-btn" onclick="handleClass('pilates')">🔒 Buy Class</button>
+        <button class="btn-cart" onclick="addToCart('pilates', 'Pilates Core', 59)">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLASS CARD: Relax & Recovery -->
+  <div class="class-card">
+    <img src="recovery.jpg" class="class-img">
+    <div class="class-box">
+      <h3>Relax & Recovery</h3>
+      <p>Stretch, relax, and recover your muscles.</p>
+      <p><strong>Sunday – 7:00pm</strong></p>
+      <p class="price">20 SAR</p>
+      <div class="btn-group">
+        <button class="btn" id="recovery-btn" onclick="handleClass('recovery')">🔒 Buy Class</button>
+        <button class="btn-cart" onclick="addToCart('recovery', 'Relax & Recovery', 20)">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<footer>
+<div class="footer-container">
+<div class="footer-column">
+<h4>EmpowerHer Gym</h4>
+<p>Helping women become stronger every day.</p>
+</div>
+<div class="footer-column">
+<h4>Quick Links</h4>
+<a href="classes.html">Classes</a>
+<a href="meal.html">Meal Plans</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="login.html">Login</a>
+</div>
+<div class="footer-column">
+<h4>Hours</h4>
+<p>Mon-Fri: 6am – 10pm</p>
+<p>Sat-Sun: 7am – 8pm</p>
+</div>
+</div>
+<div class="copyright">
+© 2026 EmpowerHer Gym. All Rights Reserved.
+</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

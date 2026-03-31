@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Meal Plans</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<!--
+This is the meal plans page showing recipe cards.
+Each card includes details, a buy/view button, and add-to-cart option.
+
+Users can search recipes, purchase them, and view content if unlocked.
+The system uses localStorage to track purchases and update button states.
+-->
+
+<body>
+
+<header>
+  <div class="header-container">
+    <div class="logo-text">
+      <span class="logo-icon">🌿</span>
+      <div class="logo-name">
+        <span class="main">EmpowerHer</span>
+        <span class="sub">GYM</span>
+      </div>
+    </div>
+    <div class="nav-box">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="classes.html">Classes</a>
+        <a href="meal.html">Meal Plans</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
+        <!-- BAG ICON: script.js turns this into a cart toggle button
+             and injects a badge showing the item count -->
+        <a href="#" class="bag">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#556B53" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 7l1-3h10l1 3"></path>
+            <path d="M3 7h18l-1 13H4L3 7z"></path>
+            <path d="M9 10a3 3 0 0 0 6 0"></path>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="classes">
+
+<h1>Healthy Recipes</h1>
+
+<!-- SEARCH BAR: onkeyup calls searchClass() in script.js,
+     which shows/hides .class-card elements in real time -->
+<input type="text" id="search" placeholder="Search recipe..." onkeyup="searchClass()">
+
+<div class="class-grid">
+
+  <!-- RECIPE CARD: Açaí Bowl -->
+  <!-- id="acai-btn" is used by updateRecipeButtons() to flip the label -->
+  <div class="class-card">
+    <img src="meal1.jpg" class="class-img">
+    <div class="class-box">
+      <h3>Açaí Bowl</h3>
+      <p>Refreshing antioxidant-rich bowl with fruits and granola.</p>
+      <p class="price">Breakfast</p>
+      <div class="btn-group">
+        <button class="btn" id="acai-btn" onclick="handleRecipe('acai')">🔒 Buy Recipe</button>
+        <button class="btn-cart" onclick="addToCart('acai', 'Açaí Bowl', 15)">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPE CARD: Grilled Chicken Bowl -->
+  <div class="class-card">
+    <img src="meal2.jpg" class="class-img">
+    <div class="class-box">
+      <h3>Grilled Chicken Bowl</h3>
+      <p>High-protein meal with veggies and rice.</p>
+      <p class="price">Lunch</p>
+      <div class="btn-group">
+        <button class="btn" id="chicken-btn" onclick="handleRecipe('chicken')">🔒 Buy Recipe</button>
+        <button class="btn-cart" onclick="addToCart('chicken', 'Grilled Chicken Bowl', 15)">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPE CARD: Salmon & Quinoa -->
+  <div class="class-card">
+    <img src="meal3.jpg" class="class-img">
+    <div class="class-box">
+      <h3>Salmon & Quinoa</h3>
+      <p>Omega-3 rich meal for heart and muscle health.</p>
+      <p class="price">Dinner</p>
+      <div class="btn-group">
+        <button class="btn" id="salmon-btn" onclick="handleRecipe('salmon')">🔒 Buy Recipe</button>
+        <button class="btn-cart" onclick="addToCart('salmon', 'Salmon & Quinoa', 15)">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPE CARD: Protein Smoothie -->
+  <div class="class-card">
+    <img src="meal4.jpg" class="class-img">
+    <div class="class-box">
+      <h3>Protein Smoothie</h3>
+      <p>Quick shake for recovery and energy.</p>
+      <p class="price">Snack</p>
+      <div class="btn-group">
+        <button class="btn" id="smoothie-btn" onclick="handleRecipe('smoothie')">🔒 Buy Recipe</button>
+        <button class="btn-cart" onclick="addToCart('smoothie', 'Protein Smoothie', 15)">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPE CARD: Oatmeal Bowl -->
+  <div class="class-card">
+    <img src="meal5.jpg" class="class-img">
+    <div class="class-box">
+      <h3>Oatmeal Bowl</h3>
+      <p>Fiber-rich breakfast with fruits and nuts.</p>
+      <p class="price">Breakfast</p>
+      <div class="btn-group">
+        <button class="btn" id="oats-btn" onclick="handleRecipe('oats')">🔒 Buy Recipe</button>
+        <button class="btn-cart" onclick="addToCart('oats', 'Oatmeal Bowl', 15)">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPE CARD: Healthy Wrap -->
+  <div class="class-card">
+    <img src="meal6.jpg" class="class-img">
+    <div class="class-box">
+      <h3>Healthy Wrap</h3>
+      <p>Light meal with protein and fresh veggies.</p>
+      <p class="price">Lunch</p>
+      <div class="btn-group">
+        <button class="btn" id="wrap-btn" onclick="handleRecipe('wrap')">🔒 Buy Recipe</button>
+        <button class="btn-cart" onclick="addToCart('wrap', 'Healthy Wrap', 15)">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-column">
+      <h4>EmpowerHer Gym</h4>
+      <p>Helping women become stronger every day.</p>
+    </div>
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <a href="classes.html">Classes</a>
+      <a href="meal.html">Meal Plans</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </div>
+    <div class="footer-column">
+      <h4>Hours</h4>
+      <p>Mon-Fri: 6am – 10pm</p>
+      <p>Sat-Sun: 7am – 8pm</p>
+    </div>
+  </div>
+  <div class="copyright">
+    © 2026 EmpowerHer Gym. All Rights Reserved.
+  </div>
+</footer>
+
+<!-- script.js handles: cart panel, lock/unlock buttons,
+     recipe search, payment modal, and page init -->
+<script src="script.js"></script>
+</body>
+</html>
